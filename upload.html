@@ -1,0 +1,1781 @@
+   <!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UPLOAD FILE - SPN POLDA JATIM</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="admin-container" role="application">
+        <!-- Sidebar -->
+        <nav class="admin-sidebar" role="navigation" aria-label="Sidebar Navigation" id="adminSidebar">
+            <div class="sidebar-header">
+                <div class="logo-section">
+                    <img src="https://yt3.ggpht.com/a/AATXAJwDikBj_PcvGKe5caluqknHoXgqXk7I5vY1CqY9=s200-c-k-c0xffffffff-no-rj-mo" alt="Logo SPN" class="sidebar-logo">
+                    <h3>SPN POLDA JATIM</h3>
+                </div>
+                <button class="sidebar-toggle" id="sidebarToggle" aria-label="Toggle Sidebar" aria-controls="adminSidebar" aria-expanded="true" type="button">
+                    <i class="fa-solid fa-bars" aria-hidden="true"></i>
+                </button>
+            </div>
+
+            <ul class="sidebar-menu" role="menu">
+                <li class="menu-item" role="none">
+                    <a href="menu.html" role="menuitem" tabindex="0">
+                        <i class="fa-solid fa-home" aria-hidden="true"></i>
+                        <span>Home</span>
+                    </a>
+                </li>
+                <li class="menu-item active" role="none">
+                    <a href="#upload" role="menuitem" tabindex="0" aria-current="page">
+                        <i class="fa-solid fa-upload" aria-hidden="true"></i>
+                        <span>Upload Data</span>
+                    </a>
+                </li>
+                <li class="menu-item" role="none">
+                    <a href="spreadsheet.html" role="menuitem" tabindex="0">
+                        <i class="fa-solid fa-file-spreadsheet" aria-hidden="true"></i>
+                        <span>Spreadsheet</span>
+                    </a>
+                </li>
+                <li class="menu-item" role="none">
+                    <a href="folder.html" role="menuitem" tabindex="0">
+                        <i class="fa-solid fa-folder" aria-hidden="true"></i>
+                        <span>Folders</span>
+                    </a>
+                </li>
+                <li class="menu-item" role="none">
+                    <a href="admin.html" role="menuitem" tabindex="0">
+                        <i class="fa-solid fa-chart-line" aria-hidden="true"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li class="menu-item" role="none">
+                    <a href="#reports" role="menuitem" tabindex="0">
+                        <i class="fa-solid fa-chart-bar" aria-hidden="true"></i>
+                        <span>Laporan</span>
+                    </a>
+                </li>
+            </ul>
+
+            <div class="sidebar-footer" role="contentinfo">
+                <div class="user-profile">
+                    <div class="user-avatar" aria-hidden="true">
+                        <i class="fa-solid fa-user"></i>
+                    </div>
+                    <div class="user-info">
+                        <span class="user-name">User Upload</span>
+                        <span class="user-role">Uploader</span>
+                    </div>
+                </div>
+                <button class="logout-btn" onclick="window.location.href='menu.html'" aria-label="Logout" type="button">
+                    <i class="fa-solid fa-sign-out-alt" aria-hidden="true"></i>
+                    <span>Logout</span>
+                </button>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="admin-main">
+            <!-- Admin Header -->
+            <header class="admin-header">
+                <div class="header-left">
+                    <button class="sidebar-toggle-btn" id="sidebarToggle">
+                        <i class="fa-solid fa-bars"></i>
+                    </button>
+                    <div class="breadcrumb">
+                        <span class="breadcrumb-item">Dashboard</span>
+                        <i class="fa-solid fa-chevron-right"></i>
+                        <span class="breadcrumb-item active">Upload Data</span>
+                    </div>
+                </div>
+                <div class="header-right">
+                    <div class="header-notifications">
+                        <button class="notification-btn">
+                            <i class="fa-solid fa-bell"></i>
+                            <span class="notification-badge">3</span>
+                        </button>
+                    </div>
+                    <div class="header-date">
+                        <span id="currentDate"></span>
+                    </div>
+                    <div class="header-actions">
+                        <button class="header-action-btn">
+                            <i class="fa-solid fa-cog"></i>
+                        </button>
+                        <button class="header-action-btn theme-toggle" id="theme-toggle">
+                            <i class="fa-solid fa-moon"></i>
+                        </button>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Dashboard Content -->
+            <div class="dashboard-content">
+                <!-- Welcome Section -->
+                <section class="welcome-section">
+                    <div class="welcome-content">
+                        <h1>Upload Data Management</h1>
+                        <p>Manage and upload files securely to the SPN POLDA JATIM system</p>
+                    </div>
+                    <div class="welcome-stats">
+                        <div class="stat-item">
+                            <i class="fa-solid fa-upload"></i>
+                            <div class="stat-info">
+                                <span class="stat-number" id="totalUploads">0</span>
+                                <span class="stat-label">Total Files</span>
+                            </div>
+                        </div>
+                        <div class="stat-item">
+                            <i class="fa-solid fa-check-circle"></i>
+                            <div class="stat-info">
+                                <span class="stat-number" id="approvedFiles">0</span>
+                                <span class="stat-label">Approved</span>
+                            </div>
+                        </div>
+                        <div class="stat-item">
+                            <i class="fa-solid fa-clock"></i>
+                            <div class="stat-info">
+                                <span class="stat-number" id="pendingFiles">0</span>
+                                <span class="stat-label">Pending</span>
+                            </div>
+                        </div>
+                        <div class="stat-item">
+                            <i class="fa-solid fa-calendar-day"></i>
+                            <div class="stat-info">
+                                <span class="stat-number" id="todayUploads">0</span>
+                                <span class="stat-label">Today's Uploads</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Statistics Cards -->
+                <section class="stats-cards">
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-card-header">
+                                <h3>File Statistics</h3>
+                                <i class="fa-solid fa-chart-pie"></i>
+                            </div>
+                            <div class="stat-card-body">
+                                <canvas id="fileTypeChart"></canvas>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-card-header">
+                                <h3>Upload Activity</h3>
+                                <i class="fa-solid fa-chart-line"></i>
+                            </div>
+                            <div class="stat-card-body">
+                                <canvas id="uploadActivityChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Charts Row -->
+                <section class="charts-section">
+                    <div class="chart-container">
+                        <div class="chart-header">
+                            <h3>Upload Trends</h3>
+                            <div class="chart-controls">
+                                <select id="timeRange">
+                                    <option value="7">Last 7 days</option>
+                                    <option value="30">Last 30 days</option>
+                                    <option value="90">Last 3 months</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="chart-body">
+                            <canvas id="uploadTrendsChart"></canvas>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- File Management Section -->
+                <section class="file-management-section">
+                    <div class="section-header">
+                        <h2>File Management</h2>
+                        <div class="section-actions">
+                            <button class="btn-secondary" onclick="openCreateFolderModal()">
+                                <i class="fa-solid fa-folder-plus"></i>
+                                Create Folder
+                            </button>
+                            <button class="btn-primary" onclick="showUploadSection()">
+                                <i class="fa-solid fa-upload"></i>
+                                Upload File
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Activity Feed -->
+                    <div class="activity-feed">
+                        <h3>Recent Activity</h3>
+                        <div class="activity-list" id="activityList">
+                            <!-- Activity items will be populated here -->
+                        </div>
+                    </div>
+
+                    <!-- Quick Actions -->
+                    <div class="quick-actions">
+                        <h3>Quick Actions</h3>
+                        <div class="actions-grid">
+                            <button class="action-card" onclick="showUploadSection()">
+                                <i class="fa-solid fa-file-upload"></i>
+                                <span>Upload New File</span>
+                            </button>
+                            <button class="action-card" onclick="openCreateFolderModal()">
+                                <i class="fa-solid fa-folder-plus"></i>
+                                <span>Create Folder</span>
+                            </button>
+                            <button class="action-card" onclick="exportData()">
+                                <i class="fa-solid fa-download"></i>
+                                <span>Export Data</span>
+                            </button>
+                            <button class="action-card" onclick="showReports()">
+                                <i class="fa-solid fa-chart-bar"></i>
+                                <span>View Reports</span>
+                            </button>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Upload Form Section -->
+                <div class="upload-form-section" id="uploadFormSection" style="display: none;">
+                    <div class="upload-form-container">
+                        <div class="form-header">
+                            <i class="fa-solid fa-cloud-upload-alt"></i>
+                            <h2>Upload New File</h2>
+                            <p>Upload and manage your documents securely</p>
+                        </div>
+
+                        <!-- Drag and Drop Zone -->
+                        <div class="drag-drop-zone" id="dragDropZone">
+                            <div class="drop-zone-content">
+                                <i class="fa-solid fa-cloud-upload-alt drop-icon"></i>
+                                <h3>Drag & Drop Files Here</h3>
+                                <p>or <span class="browse-link">browse files</span> to upload</p>
+                                <div class="file-types">
+                                    <span class="file-type">PDF</span>
+                                    <span class="file-type">DOC</span>
+                                    <span class="file-type">XLS</span>
+                                    <span class="file-type">JPG</span>
+                                    <span class="file-type">PNG</span>
+                                </div>
+                                <p class="file-limit">Maximum file size: 50MB</p>
+                            </div>
+                            <input type="file" id="certificate-file" name="certificate-file" accept=".pdf,.jpg,.jpeg,.png,.doc,.docx,.xls,.xlsx" multiple style="display: none;">
+                        </div>
+
+                        <!-- Upload Progress -->
+                        <div class="upload-progress-container" id="uploadProgress" style="display: none;">
+                            <div class="progress-header">
+                                <span>Uploading files...</span>
+                                <span id="progressText">0%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" id="progressFill"></div>
+                            </div>
+                        </div>
+
+                        <form id="certificate-form" class="upload-form" novalidate style="display: none;">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="certificate-name">File Name <span aria-hidden="true">*</span></label>
+                                    <input type="text" id="certificate-name" name="certificate-name" placeholder="Enter file name" required aria-required="true" minlength="3" maxlength="100" aria-describedby="nameHelp" autocomplete="off">
+                                    <small id="nameHelp" class="form-help">Please provide a descriptive file name (3-100 characters).</small>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="file-folder">Folder (Optional)</label>
+                                    <select id="file-folder" name="file-folder" aria-describedby="folderHelp">
+                                        <option value="">Pilih folder</option>
+                                    </select>
+                                    <small id="folderHelp" class="form-help">Optional: Store your file in a folder.</small>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="certificate-number">File Number</label>
+                                    <input type="text" id="certificate-number" name="certificate-number" placeholder="Enter file number" maxlength="50" aria-describedby="numberHelp" autocomplete="off">
+                                    <small id="numberHelp" class="form-help">Optional identifier number (max 50 characters).</small>
+                                </div>
+                                <div class="form-group">
+                                    <label for="issue-date">Issue Date</label>
+                                    <input type="date" id="issue-date" name="issue-date" aria-describedby="issueDateHelp" max="">
+                                    <small id="issueDateHelp" class="form-help">Date of issue. Cannot be in the future.</small>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="expiry-date">Expiry Date</label>
+                                    <input type="date" id="expiry-date" name="expiry-date" aria-describedby="expiryDateHelp" min="">
+                                    <small id="expiryDateHelp" class="form-help">Date of expiry. Must be after issue date.</small>
+                                </div>
+                                <div class="form-group">
+                                    <label for="certificate-description">Description (Optional)</label>
+                                    <textarea id="certificate-description" name="certificate-description" placeholder="Additional description" rows="3" maxlength="500" aria-describedby="descHelp"></textarea>
+                                    <small id="descHelp" class="form-help">Up to 500 characters.</small>
+                                </div>
+                            </div>
+
+                            <div class="form-actions">
+                                <button type="button" class="btn-secondary" onclick="hideUploadSection()">Cancel</button>
+                                <button type="submit" class="btn-primary">Upload File</button>
+                            </div>
+                        </form>
+
+                        <div id="upload-status" class="upload-status" style="display: none;">
+                            <div class="status-message">
+                                <i class="fa-solid fa-check-circle"></i>
+                                <h3>File Uploaded Successfully!</h3>
+                                <p>File has been saved to the system.</p>
+                                <button class="btn-primary" onclick="resetForm()">Upload Another</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- File List Section -->
+                <section class="file-list-section">
+                    <div class="section-header">
+                        <h2>Uploaded Files</h2>
+                    <div class="section-controls">
+                        <label for="selectAll" style="display: flex; align-items: center; margin-right: 10px;">
+                            <input type="checkbox" id="selectAll" onchange="toggleSelectAll()">
+                            <span>Select All</span>
+                        </label>
+                        <div class="section-filters">
+                            <select id="filterType">
+                                <option value="">All Types</option>
+                                <option value="pdf">PDF</option>
+                                <option value="word">Word</option>
+                                <option value="excel">Excel</option>
+                            </select>
+                            <select id="sortBy">
+                                <option value="date-desc">Newest First</option>
+                                <option value="date-asc">Oldest First</option>
+                                <option value="name-asc">Name A-Z</option>
+                                <option value="name-desc">Name Z-A</option>
+                                <option value="size-desc">Largest First</option>
+                                <option value="size-asc">Smallest First</option>
+                            </select>
+                            <input type="text" id="searchInput" placeholder="Search files...">
+                        </div>
+                        <div class="bulk-actions" id="bulkActions" style="display: none;">
+                            <span id="selectedCount">0 selected</span>
+                            <button class="btn-secondary" onclick="clearSelection()">Clear</button>
+                            <button class="btn-danger" onclick="bulkDelete()">Delete Selected</button>
+                            <button class="btn-primary" onclick="bulkDownload()">Download Selected</button>
+                        </div>
+                    </div>
+                    </div>
+                    <div id="no-files-message" class="no-files-message" style="display: none;">
+                        <p>No files uploaded yet. Upload your first file!</p>
+                    </div>
+                    <div class="uploaded-files-grid" id="uploaded-files-grid">
+                        <!-- Dynamic file cards will be added here -->
+                    </div>
+                    <div class="pagination" id="pagination" style="display: none;">
+                        <button id="prevPage" class="btn-secondary">Previous</button>
+                        <span id="pageInfo">Page 1 of 1</span>
+                        <button id="nextPage" class="btn-secondary">Next</button>
+                    </div>
+                </section>
+            </div>
+        </main>
+
+        <!-- File Viewer Modal -->
+        <div id="file-viewer-modal" class="modal" style="display: none;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 id="modal-title">File Viewer</h3>
+                    <button class="modal-close" onclick="closeFileViewer()">&times;</button>
+                </div>
+                <div class="modal-body" id="modal-body">
+                    <!-- File content will be displayed here -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Create Folder Modal -->
+        <div id="create-folder-modal" class="modal" style="display: none;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>Buat Folder Baru</h3>
+                    <button class="modal-close" onclick="closeCreateFolderModal()">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <form id="create-folder-form">
+                        <div class="form-group">
+                            <label for="folder-name">Nama Folder</label>
+                            <input type="text" id="folder-name" name="folder-name" placeholder="Masukkan nama folder" required>
+                        </div>
+                        <div class="form-actions">
+                            <button type="button" class="btn-secondary" onclick="closeCreateFolderModal()">Batal</button>
+                            <button type="submit" class="btn-primary">Buat Folder</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <nav class="footer-links">
+            <a href="menu.html">Kembali ke Menu Utama</a>
+            <span class="dot-separator">•</span>
+            <a href="admin.html">Dashboard Admin</a>
+        </nav>
+    </footer>
+
+    <script>
+        const form = document.getElementById('certificate-form');
+        const uploadStatus = document.getElementById('upload-status');
+        const noFilesMessage = document.getElementById('no-files-message');
+        const folderSelect = document.getElementById('file-folder');
+        const createFolderForm = document.getElementById('create-folder-form');
+
+        // Helper function to read file as base64 with proper chunking for large files
+        function readFileAsBase64(file) {
+            return new Promise((resolve, reject) => {
+                // For large files, use ArrayBuffer approach to avoid base64 encoding issues
+                const MAX_CHUNK_SIZE = 1024 * 1024; // 1MB chunks for safety
+                const fileSize = file.size;
+
+                // For files larger than 10MB, use streaming approach
+                if (fileSize > 10 * 1024 * 1024) {
+                    readFileInChunks(file, MAX_CHUNK_SIZE)
+                        .then(base64Data => resolve(base64Data))
+                        .catch(reject);
+                } else {
+                    // For smaller files, use direct reading
+                    const reader = new FileReader();
+                    reader.onload = () => resolve(reader.result);
+                    reader.onerror = () => reject(new Error('Failed to read file'));
+                    reader.readAsDataURL(file);
+                }
+            });
+        }
+
+        // Helper function to read large files in chunks
+        function readFileInChunks(file, chunkSize) {
+            return new Promise((resolve, reject) => {
+                const chunks = [];
+                let offset = 0;
+                let reader = new FileReader();
+
+                function readNextChunk() {
+                    if (offset >= file.size) {
+                        // All chunks read, convert to base64
+                        const blob = new Blob(chunks);
+                        const finalReader = new FileReader();
+                        finalReader.onload = () => resolve(finalReader.result);
+                        finalReader.onerror = () => reject(new Error('Failed to combine chunks'));
+                        finalReader.readAsDataURL(blob);
+                        return;
+                    }
+
+                    const slice = file.slice(offset, Math.min(offset + chunkSize, file.size));
+                    reader.onload = function(e) {
+                        if (e.target.error) {
+                            reject(new Error('Failed to read chunk: ' + e.target.error));
+                            return;
+                        }
+
+                        // Convert ArrayBuffer to Uint8Array and store
+                        chunks.push(new Uint8Array(e.target.result));
+                        offset += slice.size;
+
+                        // Continue reading next chunk
+                        setTimeout(readNextChunk, 0); // Yield to prevent blocking
+                    };
+
+                    reader.onerror = () => reject(new Error('Failed to read chunk'));
+                    reader.readAsArrayBuffer(slice);
+                }
+
+                readNextChunk();
+            });
+        }
+
+        // Load uploaded files and folders from localStorage on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            setDateConstraints();
+            loadFolders();
+            loadUploadedFiles();
+
+            // Listen for localStorage changes from other tabs/windows
+            window.addEventListener('storage', function(e) {
+                if (e.key === 'uploadedFiles' || e.key === 'folders') {
+                    console.log('LocalStorage updated from another tab, refreshing data...');
+                    loadFolders();
+                    loadUploadedFiles();
+                    updateStatistics();
+                }
+            });
+
+            // Listen for custom events from other pages
+            window.addEventListener('uploadedFilesUpdated', function() {
+                console.log('Upload event received, refreshing data...');
+                loadFolders();
+                loadUploadedFiles();
+                updateStatistics();
+            });
+        });
+
+        // Set max attribute of issue-date to today, and set expiry-date min attribute accordingly
+        function setDateConstraints() {
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('issue-date').setAttribute('max', today);
+            document.getElementById('expiry-date').setAttribute('min', document.getElementById('issue-date').value || '');
+        }
+
+        // On issue-date change, update expiry-date min attribute
+        document.getElementById('issue-date').addEventListener('change', (e) => {
+            const issueDate = e.target.value;
+            const expiryDateInput = document.getElementById('expiry-date');
+            expiryDateInput.min = issueDate;
+            if(expiryDateInput.value && expiryDateInput.value < issueDate) {
+                expiryDateInput.value = '';
+            }
+        });
+
+        form.addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            if (!form.checkValidity()) {
+                form.reportValidity();
+                return;
+            }
+
+            const file = document.getElementById('certificate-file').files[0];
+            const name = document.getElementById('certificate-name').value.trim();
+            const folder = document.getElementById('file-folder').value;
+
+            // Auto-detect file type
+            let type;
+            if (file.type.startsWith('image/')) {
+                type = 'image';
+            } else if (file.type === 'application/pdf') {
+                type = 'pdf';
+            } else if (file.type.includes('word')) {
+                type = 'word';
+            } else if (file.type.includes('excel') || file.type.includes('spreadsheet')) {
+                type = 'excel';
+            } else {
+                alert('Format file tidak didukung. Gunakan PDF, JPG, PNG, DOC/DOCX, XLS, atau XLSX');
+                return;
+            }
+            const number = document.getElementById('certificate-number').value.trim();
+            const issueDate = document.getElementById('issue-date').value;
+            const expiryDate = document.getElementById('expiry-date').value;
+            const description = document.getElementById('certificate-description').value.trim();
+
+            if (!file) {
+                alert('Silakan pilih file terlebih dahulu');
+                return;
+            }
+
+            // File size validation (50MB max)
+            if (file.size > 50 * 1024 * 1024) {
+                alert('Ukuran file maksimal 50MB');
+                return;
+            }
+
+            // File type validation
+            const allowedTypes = [
+                'application/pdf',
+                'image/jpeg',
+                'image/jpg',
+                'image/png',
+                'application/msword',
+                'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+                'application/vnd.ms-excel',
+                'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+            ];
+            if (!allowedTypes.includes(file.type)) {
+                alert('Format file tidak didukung. Gunakan PDF, JPG, PNG, DOC/DOCX, XLS, atau XLSX');
+                return;
+            }
+
+            // Validate issue and expiry date logic
+            if (issueDate && expiryDate && expiryDate < issueDate) {
+                alert('Tanggal kadaluarsa harus setelah tanggal terbit.');
+                return;
+            }
+
+            // Show processing message
+            const submitBtn = form.querySelector('button[type="submit"]');
+            const originalText = submitBtn.textContent;
+            submitBtn.textContent = 'Memproses file...';
+            submitBtn.disabled = true;
+
+            try {
+                // Read file content as base64 for persistent storage
+                const fileContent = await readFileAsBase64(file);
+
+                // Create uploaded file object
+                const uploadedFile = {
+                    id: Date.now(),
+                    fileName: file.name,
+                    name: name,
+                    type: type,
+                    folder: folder,
+                    number: number,
+                    issueDate: issueDate,
+                    expiryDate: expiryDate,
+                    description: description,
+                    uploadDate: new Date().toLocaleDateString('id-ID'),
+                    uploadTime: new Date().toLocaleTimeString('id-ID'),
+                    fileSize: (file.size / 1024 / 1024).toFixed(2) + ' MB',
+                    mimeType: file.type,
+                    fileContent: fileContent, // Store actual file content
+                    fileSizeBytes: file.size
+                };
+
+                // Save to localStorage with file content
+                saveUploadedFile(uploadedFile);
+
+                // Update UI immediately
+                loadUploadedFiles();
+                updateStatistics();
+
+                // Show success message
+                form.style.display = 'none';
+                uploadStatus.style.display = 'block';
+
+                // Add to activity feed
+                addActivity({
+                    icon: 'upload',
+                    text: `File "${name}" berhasil diupload`,
+                    time: 'Baru saja'
+                });
+
+                console.log('File uploaded successfully:', uploadedFile);
+
+            } catch (error) {
+                console.error('Error processing file:', error);
+                alert('❌ Terjadi kesalahan saat memproses file: ' + error.message);
+            } finally {
+                // Reset button state
+                submitBtn.textContent = originalText;
+                submitBtn.disabled = false;
+            }
+
+
+        });
+
+        createFolderForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const folderName = document.getElementById('folder-name').value.trim();
+            if (folderName) {
+                createFolder(folderName);
+                closeCreateFolderModal();
+                createFolderForm.reset();
+            }
+        });
+
+        function saveUploadedFile(file) {
+            let uploadedFiles = JSON.parse(localStorage.getItem('uploadedFiles')) || [];
+            uploadedFiles.unshift(file); // Add to beginning of array
+            localStorage.setItem('uploadedFiles', JSON.stringify(uploadedFiles));
+        }
+
+        function createFolder(name) {
+            let folders = JSON.parse(localStorage.getItem('folders')) || [];
+            const newFolder = {
+                id: Date.now(),
+                name: name,
+                createdDate: new Date().toLocaleDateString('id-ID')
+            };
+            folders.push(newFolder);
+            localStorage.setItem('folders', JSON.stringify(folders));
+            loadFolders();
+            loadUploadedFiles();
+        }
+
+        function loadFolders() {
+            const folders = JSON.parse(localStorage.getItem('folders')) || [];
+            folderSelect.innerHTML = '<option value="">Pilih folder</option>';
+            folders.forEach(folder => {
+                const option = document.createElement('option');
+                option.value = folder.id;
+                option.textContent = folder.name;
+                folderSelect.appendChild(option);
+            });
+        }
+
+        function loadUploadedFiles() {
+            const uploadedFiles = JSON.parse(localStorage.getItem('uploadedFiles')) || [];
+            const folders = JSON.parse(localStorage.getItem('folders')) || [];
+            const cardsContainer = document.getElementById('uploaded-files-grid');
+
+            if (uploadedFiles.length === 0 && folders.length === 0) {
+                noFilesMessage.style.display = 'block';
+                cardsContainer.style.display = 'none';
+                return;
+            }
+
+            noFilesMessage.style.display = 'none';
+            cardsContainer.style.display = 'grid';
+            cardsContainer.innerHTML = '';
+
+            // Update statistics
+            updateStatistics(uploadedFiles);
+
+            // Display all files as cards
+            uploadedFiles.forEach((file, index) => {
+                const card = document.createElement('div');
+                card.className = 'file-card';
+                card.setAttribute('data-status', 'approved'); // Assuming all uploaded files are approved
+                card.innerHTML = `
+                    <div class="file-card-header">
+                        <div class="file-number">${index + 1}</div>
+                        <div class="file-type-icon">
+                            <i class="fa-solid fa-file-${getFileIcon(file.type)}"></i>
+                        </div>
+                        <div class="file-status-indicator approved">
+                            <i class="fa-solid fa-check-circle"></i>
+                        </div>
+                    </div>
+                    <div class="file-card-body">
+                        <div class="file-info">
+                            <h4 class="file-name">${file.name}</h4>
+                            <p class="file-description">${file.description || 'Tidak ada deskripsi'}</p>
+                            <div class="file-meta">
+                                <span class="file-size"><i class="fa-solid fa-weight-hanging"></i> ${file.fileSize}</span>
+                                <span class="file-date"><i class="fa-solid fa-calendar"></i> ${file.uploadDate}</span>
+                            </div>
+                        </div>
+                        <div class="file-type-badge">
+                            <i class="fa-solid fa-file-${getFileIcon(file.type)}"></i>
+                            <span>${getTypeLabel(file.type)}</span>
+                        </div>
+                    </div>
+                    <div class="file-card-actions">
+                        <input type="checkbox" class="file-checkbox" data-id="${file.id}" onchange="updateBulkActions()">
+                        <button class="action-btn view" title="View Details" onclick="viewFile(${file.id})">
+                            <i class="fa-solid fa-eye"></i>
+                            <span>Lihat</span>
+                        </button>
+                        <button class="action-btn download" title="Download" onclick="downloadFile(${file.id})">
+                            <i class="fa-solid fa-download"></i>
+                            <span>Download</span>
+                        </button>
+                        <button class="action-btn delete" title="Delete" onclick="deleteFile(${file.id})">
+                            <i class="fa-solid fa-trash"></i>
+                            <span>Hapus</span>
+                        </button>
+                    </div>
+                `;
+                cardsContainer.appendChild(card);
+            });
+        }
+
+        function toggleFolder(folderId) {
+            const folderContents = document.getElementById(`folder-${folderId}`);
+            const uploadedFiles = JSON.parse(localStorage.getItem('uploadedFiles')) || [];
+            const folderFiles = uploadedFiles.filter(file => file.folder == folderId);
+
+            if (folderContents.style.display === 'none') {
+                folderContents.style.display = 'block';
+                folderContents.innerHTML = '';
+                folderFiles.forEach(file => {
+                    const fileItem = createFileItem(file);
+                    folderContents.appendChild(fileItem);
+                });
+            } else {
+                folderContents.style.display = 'none';
+            }
+        }
+
+        function deleteFolder(folderId) {
+            if (confirm('Apakah Anda yakin ingin menghapus folder ini dan semua file di dalamnya?')) {
+                // Remove folder
+                let folders = JSON.parse(localStorage.getItem('folders')) || [];
+                folders = folders.filter(f => f.id !== folderId);
+                localStorage.setItem('folders', JSON.stringify(folders));
+
+                // Remove files in folder
+                let uploadedFiles = JSON.parse(localStorage.getItem('uploadedFiles')) || [];
+                uploadedFiles = uploadedFiles.filter(f => f.folder != folderId);
+                localStorage.setItem('uploadedFiles', JSON.stringify(uploadedFiles));
+
+                loadFolders();
+                folderSelect.value = ''; // Clear the selected folder
+                loadUploadedFiles();
+            }
+        }
+
+        function getFileIcon(type) {
+            switch(type) {
+                case 'pdf': return 'pdf';
+                case 'word': return 'word';
+                case 'excel': return 'excel';
+                case 'image': return 'image';
+                default: return 'file';
+            }
+        }
+
+        function getTypeLabel(type) {
+            switch(type) {
+                case 'pdf': return 'PDF';
+                case 'word': return 'Word';
+                case 'excel': return 'Excel';
+                case 'image': return 'Image';
+                default: return type;
+            }
+        }
+
+        function viewFile(id) {
+            const uploadedFiles = JSON.parse(localStorage.getItem('uploadedFiles')) || [];
+            const file = uploadedFiles.find(f => f.id === id);
+            if (file && file.fileContent) {
+                // Show modal with file content
+                const modal = document.getElementById('file-viewer-modal');
+                const modalTitle = document.getElementById('modal-title');
+                const modalBody = document.getElementById('modal-body');
+
+                modalTitle.textContent = file.name;
+
+                if (file.mimeType.startsWith('image/')) {
+                    // Display image
+                    modalBody.innerHTML = `
+                        <div style="text-align: center;">
+                            <img src="${file.fileContent}" alt="${file.name}" style="max-width: 100%; max-height: 70vh; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);" />
+                            <div style="margin-top: 20px; padding: 15px; background: #f8f9fa; border-radius: 8px; text-align: left;">
+                                <p><strong>Jenis:</strong> ${getTypeLabel(file.type)}</p>
+                                <p><strong>Nomor:</strong> ${file.number || 'N/A'}</p>
+                                <p><strong>Tanggal Terbit:</strong> ${file.issueDate || 'N/A'}</p>
+                                <p><strong>Tanggal Kadaluarsa:</strong> ${file.expiryDate || 'N/A'}</p>
+                                <p><strong>Ukuran:</strong> ${file.fileSize}</p>
+                                <p><strong>Diupload:</strong> ${file.uploadDate}</p>
+                                ${file.description ? `<p><strong>Deskripsi:</strong> ${file.description}</p>` : ''}
+                            </div>
+                        </div>
+                    `;
+                } else if (file.mimeType === 'application/pdf') {
+                    // Display PDF in iframe
+                    modalBody.innerHTML = `
+                        <div style="height: 70vh;">
+                            <iframe src="${file.fileContent}" style="width: 100%; height: 100%; border: none; border-radius: 8px;"></iframe>
+                        </div>
+                        <div style="margin-top: 15px; padding: 15px; background: #f8f9fa; border-radius: 8px; text-align: left;">
+                            <p><strong>Jenis:</strong> ${getTypeLabel(file.type)}</p>
+                            <p><strong>Nomor:</strong> ${file.number || 'N/A'}</p>
+                            <p><strong>Tanggal Terbit:</strong> ${file.issueDate || 'N/A'}</p>
+                            <p><strong>Tanggal Kadaluarsa:</strong> ${file.expiryDate || 'N/A'}</p>
+                            <p><strong>Ukuran:</strong> ${file.fileSize}</p>
+                            <p><strong>Diupload:</strong> ${file.uploadDate}</p>
+                            ${file.description ? `<p><strong>Deskripsi:</strong> ${file.description}</p>` : ''}
+                        </div>
+                    `;
+                } else {
+                    // For other file types, show download option
+                    modalBody.innerHTML = `
+                        <div style="text-align: center;">
+                            <div style="font-size: 48px; color: #8B4513; margin-bottom: 20px;">
+                                <i class="fa-solid fa-file-${getFileIcon(file.type)}"></i>
+                            </div>
+                            <p style="font-size: 18px; margin-bottom: 20px;">File ini tidak dapat ditampilkan langsung di browser.</p>
+                            <a href="${file.fileContent}" download="${file.name}" style="background: #007bff; color: white; padding: 12px 24px; text-decoration: none; border-radius: 6px; display: inline-block; margin-bottom: 20px;">Download File</a>
+                            <div style="padding: 15px; background: #f8f9fa; border-radius: 8px; text-align: left;">
+                                <p><strong>Jenis:</strong> ${getTypeLabel(file.type)}</p>
+                                <p><strong>Nomor:</strong> ${file.number || 'N/A'}</p>
+                                <p><strong>Tanggal Terbit:</strong> ${file.issueDate || 'N/A'}</p>
+                                <p><strong>Tanggal Kadaluarsa:</strong> ${file.expiryDate || 'N/A'}</p>
+                                <p><strong>Ukuran:</strong> ${file.fileSize}</p>
+                                <p><strong>Diupload:</strong> ${file.uploadDate}</p>
+                                ${file.description ? `<p><strong>Deskripsi:</strong> ${file.description}</p>` : ''}
+                            </div>
+                        </div>
+                    `;
+                }
+
+                modal.style.display = 'flex';
+            } else {
+                alert('File tidak ditemukan atau belum diupload dengan benar.');
+            }
+        }
+
+        function deleteFile(id) {
+            if (confirm('Apakah Anda yakin ingin menghapus file ini?')) {
+                let uploadedFiles = JSON.parse(localStorage.getItem('uploadedFiles')) || [];
+                uploadedFiles = uploadedFiles.filter(f => f.id !== id);
+                localStorage.setItem('uploadedFiles', JSON.stringify(uploadedFiles));
+                loadUploadedFiles();
+            }
+        }
+
+        function downloadFile(id) {
+            const uploadedFiles = JSON.parse(localStorage.getItem('uploadedFiles')) || [];
+            const file = uploadedFiles.find(f => f.id === id);
+            if (file && file.fileContent) {
+                const link = document.createElement('a');
+                link.href = file.fileContent;
+                link.download = file.fileName;
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            } else {
+                alert('File tidak ditemukan atau belum diupload dengan benar.');
+            }
+        }
+
+        function clearForm() {
+            form.reset();
+        }
+
+        function resetForm() {
+            uploadStatus.style.display = 'none';
+            form.style.display = 'block';
+            form.reset();
+            loadFolders();
+            loadUploadedFiles(); // Refresh the list after upload
+        }
+
+        function closeFileViewer() {
+            const modal = document.getElementById('file-viewer-modal');
+            modal.style.display = 'none';
+        }
+
+        function openCreateFolderModal() {
+            const modal = document.getElementById('create-folder-modal');
+            modal.style.display = 'flex';
+        }
+
+        function closeCreateFolderModal() {
+            const modal = document.getElementById('create-folder-modal');
+            modal.style.display = 'none';
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const fileModal = document.getElementById('file-viewer-modal');
+            const folderModal = document.getElementById('create-folder-modal');
+            if (event.target === fileModal) {
+                fileModal.style.display = 'none';
+            }
+            if (event.target === folderModal) {
+                folderModal.style.display = 'none';
+            }
+        }
+
+
+
+
+
+        function updateStatistics(files) {
+            const totalUploads = document.getElementById('totalUploads');
+            const approvedFiles = document.getElementById('approvedFiles');
+            const pendingFiles = document.getElementById('pendingFiles');
+            const todayUploads = document.getElementById('todayUploads');
+
+            const today = new Date().toLocaleDateString('id-ID');
+            const todayFiles = files.filter(file => file.uploadDate === today);
+
+            totalUploads.textContent = files.length;
+            approvedFiles.textContent = files.length; // Assuming all are approved
+            pendingFiles.textContent = 0; // No pending logic implemented
+            todayUploads.textContent = todayFiles.length;
+        }
+
+        function showUploadSection() {
+            const uploadSection = document.getElementById('uploadFormSection');
+            uploadSection.style.display = 'block';
+            uploadSection.scrollIntoView({ behavior: 'smooth' });
+
+            // Auto-show upload section if coming from admin dashboard
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.get('upload') === 'true') {
+                // Show the form immediately for direct access
+                document.getElementById('certificate-form').style.display = 'block';
+            }
+        }
+
+        function hideUploadSection() {
+            const uploadSection = document.getElementById('uploadFormSection');
+            uploadSection.style.display = 'none';
+        }
+
+        function exportData() {
+            alert('Fitur export data akan segera hadir!');
+        }
+
+        function showReports() {
+            alert('Fitur laporan akan segera hadir!');
+        }
+
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', function() {
+            loadFolders();
+            loadUploadedFiles();
+            updateCurrentDate();
+            initializeCharts();
+            setupSearchAndFilter();
+            setupDragAndDrop();
+            setupSidebarToggle();
+            setupThemeToggle();
+            setupNotifications();
+            setupHeaderActions();
+            setupSorting();
+            setupPagination();
+            loadPersistedFiles();
+
+            // Auto-show upload section if coming from admin dashboard
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.get('upload') === 'true') {
+                showUploadSection();
+            }
+        });
+
+        function updateCurrentDate() {
+            const currentDateElement = document.getElementById('currentDate');
+            const now = new Date();
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            currentDateElement.textContent = now.toLocaleDateString('id-ID', options);
+        }
+
+        function initializeCharts() {
+            const uploadedFiles = JSON.parse(localStorage.getItem('uploadedFiles')) || [];
+
+            // File Type Chart
+            const fileTypeCtx = document.getElementById('fileTypeChart').getContext('2d');
+            const fileTypes = uploadedFiles.reduce((acc, file) => {
+                acc[file.type] = (acc[file.type] || 0) + 1;
+                return acc;
+            }, {});
+
+            new Chart(fileTypeCtx, {
+                type: 'pie',
+                data: {
+                    labels: Object.keys(fileTypes),
+                    datasets: [{
+                        data: Object.values(fileTypes),
+                        backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56'],
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                        }
+                    }
+                }
+            });
+
+            // Upload Activity Chart (last 7 days)
+            const uploadActivityCtx = document.getElementById('uploadActivityChart').getContext('2d');
+            const last7Days = Array.from({length: 7}, (_, i) => {
+                const date = new Date();
+                date.setDate(date.getDate() - i);
+                return date.toLocaleDateString('id-ID');
+            }).reverse();
+
+            const uploadCounts = last7Days.map(date => {
+                return uploadedFiles.filter(file => file.uploadDate === date).length;
+            });
+
+            new Chart(uploadActivityCtx, {
+                type: 'line',
+                data: {
+                    labels: last7Days,
+                    datasets: [{
+                        label: 'Uploads',
+                        data: uploadCounts,
+                        borderColor: '#36A2EB',
+                        backgroundColor: 'rgba(54, 162, 235, 0.1)',
+                        tension: 0.4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+
+            // Upload Trends Chart
+            const uploadTrendsCtx = document.getElementById('uploadTrendsChart').getContext('2d');
+            const timeRange = document.getElementById('timeRange').value;
+            const days = parseInt(timeRange);
+            const trendLabels = Array.from({length: days}, (_, i) => {
+                const date = new Date();
+                date.setDate(date.getDate() - (days - 1 - i));
+                return date.toLocaleDateString('id-ID');
+            });
+
+            const trendData = trendLabels.map(date => {
+                return uploadedFiles.filter(file => file.uploadDate === date).length;
+            });
+
+            new Chart(uploadTrendsCtx, {
+                type: 'bar',
+                data: {
+                    labels: trendLabels,
+                    datasets: [{
+                        label: 'Daily Uploads',
+                        data: trendData,
+                        backgroundColor: '#FF6384',
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        }
+
+        function setupSearchAndFilter() {
+            const searchInput = document.getElementById('searchInput');
+            const filterType = document.getElementById('filterType');
+
+            searchInput.addEventListener('input', filterFiles);
+            filterType.addEventListener('change', filterFiles);
+        }
+
+        function filterFiles() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            const filterType = document.getElementById('filterType').value;
+            const uploadedFiles = JSON.parse(localStorage.getItem('uploadedFiles')) || [];
+            const cardsContainer = document.getElementById('uploaded-files-grid');
+
+            cardsContainer.innerHTML = '';
+
+            const filteredFiles = uploadedFiles.filter(file => {
+                const matchesSearch = file.name.toLowerCase().includes(searchTerm) ||
+                                    (file.description && file.description.toLowerCase().includes(searchTerm));
+                const matchesType = !filterType || file.type === filterType;
+                return matchesSearch && matchesType;
+            });
+
+            if (filteredFiles.length === 0) {
+                cardsContainer.innerHTML = '<p>No files match your search criteria.</p>';
+                return;
+            }
+
+            filteredFiles.forEach((file, index) => {
+                const card = document.createElement('div');
+                card.className = 'file-card';
+                card.setAttribute('data-status', 'approved');
+                card.innerHTML = `
+                    <div class="file-card-header">
+                        <div class="file-number">${index + 1}</div>
+                        <div class="file-type-icon">
+                            <i class="fa-solid fa-file-${getFileIcon(file.type)}"></i>
+                        </div>
+                        <div class="file-status-indicator approved">
+                            <i class="fa-solid fa-check-circle"></i>
+                        </div>
+                    </div>
+                    <div class="file-card-body">
+                        <div class="file-info">
+                            <h4 class="file-name">${file.name}</h4>
+                            <p class="file-description">${file.description || 'Tidak ada deskripsi'}</p>
+                            <div class="file-meta">
+                                <span class="file-size"><i class="fa-solid fa-weight-hanging"></i> ${file.fileSize}</span>
+                                <span class="file-date"><i class="fa-solid fa-calendar"></i> ${file.uploadDate}</span>
+                            </div>
+                        </div>
+                        <div class="file-type-badge">
+                            <i class="fa-solid fa-file-${getFileIcon(file.type)}"></i>
+                            <span>${getTypeLabel(file.type)}</span>
+                        </div>
+                    </div>
+                    <div class="file-card-actions">
+                        <input type="checkbox" class="file-checkbox" data-id="${file.id}" onchange="updateBulkActions()">
+                        <button class="action-btn view" title="View Details" onclick="viewFile(${file.id})">
+                            <i class="fa-solid fa-eye"></i>
+                            <span>Lihat</span>
+                        </button>
+                        <button class="action-btn download" title="Download" onclick="downloadFile(${file.id})">
+                            <i class="fa-solid fa-download"></i>
+                            <span>Download</span>
+                        </button>
+                        <button class="action-btn delete" title="Delete" onclick="deleteFile(${file.id})">
+                            <i class="fa-solid fa-trash"></i>
+                            <span>Hapus</span>
+                        </button>
+                    </div>
+                `;
+                cardsContainer.appendChild(card);
+            });
+        }
+
+        function setupDragAndDrop() {
+            const dragDropZone = document.getElementById('dragDropZone');
+            const fileInput = document.getElementById('certificate-file');
+            const browseLink = dragDropZone.querySelector('.browse-link');
+
+            // Browse link click handler
+            browseLink.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                fileInput.click();
+            });
+
+            // File input change handler
+            fileInput.addEventListener('change', function(e) {
+                if (e.target.files.length > 0) {
+                    handleFiles(e.target.files);
+                }
+            });
+
+            // Drag and drop event handlers
+            ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+                dragDropZone.addEventListener(eventName, preventDefaults, false);
+            });
+
+            function preventDefaults(e) {
+                e.preventDefault();
+                e.stopPropagation();
+            }
+
+            ['dragenter', 'dragover'].forEach(eventName => {
+                dragDropZone.addEventListener(eventName, highlight, false);
+            });
+
+            ['dragleave', 'drop'].forEach(eventName => {
+                dragDropZone.addEventListener(eventName, unhighlight, false);
+            });
+
+            function highlight(e) {
+                dragDropZone.classList.add('drag-over');
+            }
+
+            function unhighlight(e) {
+                dragDropZone.classList.remove('drag-over');
+            }
+
+            dragDropZone.addEventListener('drop', handleDrop, false);
+
+            function handleDrop(e) {
+                const dt = e.dataTransfer;
+                const files = dt.files;
+                handleFiles(files);
+            }
+
+            function handleFiles(files) {
+                if (files.length > 0) {
+                    // Create a DataTransfer object to set files on the input
+                    const dt = new DataTransfer();
+                    for (let i = 0; i < files.length; i++) {
+                        dt.items.add(files[i]);
+                    }
+                    document.getElementById('certificate-file').files = dt.files;
+
+                    // Show upload form immediately
+                    document.getElementById('certificate-form').style.display = 'block';
+
+                    // Auto-fill the first file name
+                    const firstFile = files[0];
+                    document.getElementById('certificate-name').value = firstFile.name.replace(/\.[^/.]+$/, "");
+
+                    // Scroll to form
+                    document.getElementById('certificate-form').scrollIntoView({ behavior: 'smooth' });
+
+                    // Trigger file input change event to ensure validation
+                    const event = new Event('change', { bubbles: true });
+                    document.getElementById('certificate-file').dispatchEvent(event);
+                }
+            }
+        }
+
+        function addActivity(activity) {
+            const activityList = document.getElementById('activityList');
+            const activityItem = document.createElement('div');
+            activityItem.className = 'activity-item';
+            activityItem.innerHTML = `
+                <div class="activity-icon">
+                    <i class="fa-solid fa-${activity.icon}"></i>
+                </div>
+                <div class="activity-content">
+                    <p class="activity-text">${activity.text}</p>
+                    <span class="activity-time">${activity.time}</span>
+                </div>
+            `;
+            activityList.insertBefore(activityItem, activityList.firstChild);
+
+            // Keep only last 10 activities
+            while (activityList.children.length > 10) {
+                activityList.removeChild(activityList.lastChild);
+            }
+        }
+
+        // Override saveUploadedFile to add activity
+        const originalSaveUploadedFile = saveUploadedFile;
+        function saveUploadedFile(file) {
+            originalSaveUploadedFile(file);
+            addActivity({
+                icon: 'upload',
+                text: `File "${file.name}" berhasil diupload`,
+                time: 'Baru saja'
+            });
+        }
+
+        // Override createFolder to add activity
+        const originalCreateFolder = createFolder;
+        function createFolder(name) {
+            originalCreateFolder(name);
+            addActivity({
+                icon: 'folder-plus',
+                text: `Folder "${name}" berhasil dibuat`,
+                time: 'Baru saja'
+            });
+        }
+
+        // Override deleteFile to add activity
+        const originalDeleteFile = deleteFile;
+        function deleteFile(id) {
+            const uploadedFiles = JSON.parse(localStorage.getItem('uploadedFiles')) || [];
+            const file = uploadedFiles.find(f => f.id === id);
+            if (file) {
+                addActivity({
+                    icon: 'trash',
+                    text: `File "${file.name}" berhasil dihapus`,
+                    time: 'Baru saja'
+                });
+            }
+            originalDeleteFile(id);
+        }
+
+        function toggleSelectAll() {
+            const selectAllCheckbox = document.getElementById('selectAll');
+            const fileCheckboxes = document.querySelectorAll('.file-checkbox');
+            fileCheckboxes.forEach(checkbox => {
+                checkbox.checked = selectAllCheckbox.checked;
+            });
+            updateBulkActions();
+        }
+
+        function updateBulkActions() {
+            const fileCheckboxes = document.querySelectorAll('.file-checkbox');
+            const selectedCount = document.querySelectorAll('.file-checkbox:checked').length;
+            const bulkActions = document.getElementById('bulkActions');
+            const selectedCountSpan = document.getElementById('selectedCount');
+
+            if (selectedCount > 0) {
+                bulkActions.style.display = 'flex';
+                selectedCountSpan.textContent = selectedCount + ' selected';
+            } else {
+                bulkActions.style.display = 'none';
+            }
+
+            // Update select all checkbox state
+            const selectAllCheckbox = document.getElementById('selectAll');
+            const totalCheckboxes = fileCheckboxes.length;
+            if (selectedCount === 0) {
+                selectAllCheckbox.indeterminate = false;
+                selectAllCheckbox.checked = false;
+            } else if (selectedCount === totalCheckboxes) {
+                selectAllCheckbox.indeterminate = false;
+                selectAllCheckbox.checked = true;
+            } else {
+                selectAllCheckbox.indeterminate = true;
+                selectAllCheckbox.checked = false;
+            }
+        }
+
+        function clearSelection() {
+            const fileCheckboxes = document.querySelectorAll('.file-checkbox');
+            fileCheckboxes.forEach(checkbox => {
+                checkbox.checked = false;
+            });
+            updateBulkActions();
+        }
+
+        function bulkDelete() {
+            const selectedCheckboxes = document.querySelectorAll('.file-checkbox:checked');
+            if (selectedCheckboxes.length === 0) return;
+
+            if (confirm(`Apakah Anda yakin ingin menghapus ${selectedCheckboxes.length} file yang dipilih?`)) {
+                let uploadedFiles = JSON.parse(localStorage.getItem('uploadedFiles')) || [];
+                const selectedIds = Array.from(selectedCheckboxes).map(cb => parseInt(cb.getAttribute('data-id')));
+
+                uploadedFiles = uploadedFiles.filter(file => !selectedIds.includes(file.id));
+                localStorage.setItem('uploadedFiles', JSON.stringify(uploadedFiles));
+
+                loadUploadedFiles();
+                addActivity({
+                    icon: 'trash',
+                    text: `${selectedCheckboxes.length} file berhasil dihapus`,
+                    time: 'Baru saja'
+                });
+            }
+        }
+
+        function bulkDownload() {
+            const selectedCheckboxes = document.querySelectorAll('.file-checkbox:checked');
+            if (selectedCheckboxes.length === 0) return;
+
+            const uploadedFiles = JSON.parse(localStorage.getItem('uploadedFiles')) || [];
+            const selectedIds = Array.from(selectedCheckboxes).map(cb => parseInt(cb.getAttribute('data-id')));
+
+            selectedIds.forEach(id => {
+                const file = uploadedFiles.find(f => f.id === id);
+                if (file && file.fileContent) {
+                    const link = document.createElement('a');
+                    link.href = file.fileContent;
+                    link.download = file.fileName;
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                }
+            });
+        }
+
+        // Sidebar Toggle Functionality
+        function setupSidebarToggle() {
+            const sidebarToggle = document.getElementById('sidebarToggle');
+            const sidebarToggleBtn = document.getElementById('sidebarToggle');
+            const adminContainer = document.querySelector('.admin-container');
+
+            function toggleSidebar() {
+                adminContainer.classList.toggle('sidebar-collapsed');
+                const isCollapsed = adminContainer.classList.contains('sidebar-collapsed');
+                sidebarToggle.setAttribute('aria-expanded', !isCollapsed);
+            }
+
+            if (sidebarToggle) {
+                sidebarToggle.addEventListener('click', toggleSidebar);
+            }
+            if (sidebarToggleBtn && sidebarToggleBtn !== sidebarToggle) {
+                sidebarToggleBtn.addEventListener('click', toggleSidebar);
+            }
+        }
+
+        // Theme Toggle Functionality
+        function setupThemeToggle() {
+            const themeToggle = document.getElementById('theme-toggle');
+            const html = document.documentElement;
+
+            // Load saved theme
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            if (savedTheme === 'dark') {
+                html.setAttribute('data-theme', 'dark');
+                themeToggle.innerHTML = '<i class="fa-solid fa-sun"></i>';
+            }
+
+            themeToggle.addEventListener('click', function() {
+                const currentTheme = html.getAttribute('data-theme');
+                if (currentTheme === 'dark') {
+                    html.removeAttribute('data-theme');
+                    themeToggle.innerHTML = '<i class="fa-solid fa-moon"></i>';
+                    localStorage.setItem('theme', 'light');
+                } else {
+                    html.setAttribute('data-theme', 'dark');
+                    themeToggle.innerHTML = '<i class="fa-solid fa-sun"></i>';
+                    localStorage.setItem('theme', 'dark');
+                }
+            });
+        }
+
+        // Notification Functionality
+        function setupNotifications() {
+            const notificationBtn = document.querySelector('.notification-btn');
+            const notificationBadge = document.querySelector('.notification-badge');
+
+            // Sample notifications
+            let notifications = JSON.parse(localStorage.getItem('notifications')) || [
+                { id: 1, text: 'File "Laporan.pdf" berhasil diupload', time: '2 jam yang lalu', unread: true },
+                { id: 2, text: 'Folder "Dokumen" berhasil dibuat', time: '1 hari yang lalu', unread: true },
+                { id: 3, text: 'File "Data.xlsx" telah disetujui', time: '2 hari yang lalu', unread: false }
+            ];
+
+            // Update badge count
+            const unreadCount = notifications.filter(n => n.unread).length;
+            if (unreadCount > 0) {
+                notificationBadge.textContent = unreadCount;
+                notificationBadge.style.display = 'block';
+            } else {
+                notificationBadge.style.display = 'none';
+            }
+
+            notificationBtn.addEventListener('click', function() {
+                // Mark all as read
+                notifications.forEach(n => n.unread = false);
+                localStorage.setItem('notifications', JSON.stringify(notifications));
+                notificationBadge.style.display = 'none';
+
+                // Show notification panel (placeholder)
+                alert('Panel notifikasi akan segera hadir!');
+            });
+        }
+
+        // Header Actions Functionality
+        function setupHeaderActions() {
+            const headerActionBtn = document.querySelector('.header-action-btn:not(.theme-toggle)');
+
+            headerActionBtn.addEventListener('click', function() {
+                alert('Menu pengaturan akan segera hadir!');
+            });
+        }
+
+        // Sorting Functionality
+        function setupSorting() {
+            const sortBy = document.getElementById('sortBy');
+
+            sortBy.addEventListener('change', function() {
+                const sortValue = this.value;
+                const uploadedFiles = JSON.parse(localStorage.getItem('uploadedFiles')) || [];
+
+                let sortedFiles = [...uploadedFiles];
+
+                switch(sortValue) {
+                    case 'date-desc':
+                        sortedFiles.sort((a, b) => new Date(b.uploadDate) - new Date(a.uploadDate));
+                        break;
+                    case 'date-asc':
+                        sortedFiles.sort((a, b) => new Date(a.uploadDate) - new Date(b.uploadDate));
+                        break;
+                    case 'name-asc':
+                        sortedFiles.sort((a, b) => a.name.localeCompare(b.name));
+                        break;
+                    case 'name-desc':
+                        sortedFiles.sort((a, b) => b.name.localeCompare(a.name));
+                        break;
+                    case 'size-desc':
+                        sortedFiles.sort((a, b) => parseFloat(b.fileSize) - parseFloat(a.fileSize));
+                        break;
+                    case 'size-asc':
+                        sortedFiles.sort((a, b) => parseFloat(a.fileSize) - parseFloat(b.fileSize));
+                        break;
+                }
+
+                // Update localStorage temporarily for display
+                localStorage.setItem('uploadedFiles', JSON.stringify(sortedFiles));
+                loadUploadedFiles();
+            });
+        }
+
+        // Pagination Functionality
+        function setupPagination() {
+            const timeRange = document.getElementById('timeRange');
+
+            timeRange.addEventListener('change', function() {
+                initializeCharts(); // Re-initialize charts with new time range
+            });
+        }
+
+        // Load Persisted Files (with base64 conversion for demo)
+        function loadPersistedFiles() {
+            const uploadedFiles = JSON.parse(localStorage.getItem('uploadedFiles')) || [];
+
+            // For demo purposes, if files exist but don't have fileContent, recreate object URLs
+            // In a real app, you'd store files on a server
+            uploadedFiles.forEach(file => {
+                if (!file.fileContent && file.fileName) {
+                    // This is a placeholder - in reality, you'd need the actual file data
+                    // For demo, we'll just note that files persist but content needs re-upload
+                    console.log(`File "${file.name}" persisted but content needs re-upload`);
+                }
+            });
+        }
+
+        // Enhanced Export Functionality
+        function exportData() {
+            const uploadedFiles = JSON.parse(localStorage.getItem('uploadedFiles')) || [];
+
+            if (uploadedFiles.length === 0) {
+                alert('Tidak ada data untuk diekspor');
+                return;
+            }
+
+            // Create CSV content
+            const csvContent = [
+                ['Nama File', 'Tipe', 'Ukuran', 'Tanggal Upload', 'Deskripsi'],
+                ...uploadedFiles.map(file => [
+                    file.name,
+                    getTypeLabel(file.type),
+                    file.fileSize,
+                    file.uploadDate,
+                    file.description || ''
+                ])
+            ].map(row => row.map(cell => `"${cell}"`).join(',')).join('\n');
+
+            // Download CSV
+            const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = 'uploaded_files_export.csv';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+
+            addActivity({
+                icon: 'download',
+                text: 'Data berhasil diekspor ke CSV',
+                time: 'Baru saja'
+            });
+        }
+
+        // Enhanced Reports Functionality
+        function showReports() {
+            const uploadedFiles = JSON.parse(localStorage.getItem('uploadedFiles')) || [];
+
+            const stats = {
+                total: uploadedFiles.length,
+                pdf: uploadedFiles.filter(f => f.type === 'pdf').length,
+                word: uploadedFiles.filter(f => f.type === 'word').length,
+                excel: uploadedFiles.filter(f => f.type === 'excel').length,
+                image: uploadedFiles.filter(f => f.type === 'image').length,
+                totalSize: uploadedFiles.reduce((sum, f) => sum + parseFloat(f.fileSize), 0)
+            };
+
+            const report = `
+Laporan Upload File
+==================
+
+Total File: ${stats.total}
+File PDF: ${stats.pdf}
+File Word: ${stats.word}
+File Excel: ${stats.excel}
+File Image: ${stats.image}
+Total Ukuran: ${stats.totalSize.toFixed(2)} MB
+
+File terbaru: ${uploadedFiles.length > 0 ? uploadedFiles[0].name : 'Tidak ada'}
+            `;
+
+            alert(report);
+        }
+
+        // Enhanced Charts with Sample Data
+        function initializeCharts() {
+            const uploadedFiles = JSON.parse(localStorage.getItem('uploadedFiles')) || [];
+
+            // If no files, show sample data
+            const hasData = uploadedFiles.length > 0;
+
+            // File Type Chart
+            const fileTypeCtx = document.getElementById('fileTypeChart').getContext('2d');
+            let fileTypes = {};
+
+            if (hasData) {
+                fileTypes = uploadedFiles.reduce((acc, file) => {
+                    acc[file.type] = (acc[file.type] || 0) + 1;
+                    return acc;
+                }, {});
+            } else {
+                // Sample data
+                fileTypes = { pdf: 5, word: 3, excel: 2 };
+            }
+
+            new Chart(fileTypeCtx, {
+                type: 'pie',
+                data: {
+                    labels: Object.keys(fileTypes).map(type => getTypeLabel(type)),
+                    datasets: [{
+                        data: Object.values(fileTypes),
+                        backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56'],
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                        }
+                    }
+                }
+            });
+
+            // Upload Activity Chart (last 7 days)
+            const uploadActivityCtx = document.getElementById('uploadActivityChart').getContext('2d');
+            const last7Days = Array.from({length: 7}, (_, i) => {
+                const date = new Date();
+                date.setDate(date.getDate() - i);
+                return date.toLocaleDateString('id-ID');
+            }).reverse();
+
+            let uploadCounts = [];
+            if (hasData) {
+                uploadCounts = last7Days.map(date => {
+                    return uploadedFiles.filter(file => file.uploadDate === date).length;
+                });
+            } else {
+                // Sample data
+                uploadCounts = [2, 1, 3, 0, 2, 1, 4];
+            }
+
+            new Chart(uploadActivityCtx, {
+                type: 'line',
+                data: {
+                    labels: last7Days,
+                    datasets: [{
+                        label: 'Uploads',
+                        data: uploadCounts,
+                        borderColor: '#36A2EB',
+                        backgroundColor: 'rgba(54, 162, 235, 0.1)',
+                        tension: 0.4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+
+            // Upload Trends Chart
+            const uploadTrendsCtx = document.getElementById('uploadTrendsChart').getContext('2d');
+            const timeRange = document.getElementById('timeRange').value;
+            const days = parseInt(timeRange);
+            const trendLabels = Array.from({length: days}, (_, i) => {
+                const date = new Date();
+                date.setDate(date.getDate() - (days - 1 - i));
+                return date.toLocaleDateString('id-ID');
+            });
+
+            let trendData = [];
+            if (hasData) {
+                trendData = trendLabels.map(date => {
+                    return uploadedFiles.filter(file => file.uploadDate === date).length;
+                });
+            } else {
+                // Sample data based on time range
+                trendData = Array.from({length: days}, () => Math.floor(Math.random() * 5));
+            }
+
+            new Chart(uploadTrendsCtx, {
+                type: 'bar',
+                data: {
+                    labels: trendLabels,
+                    datasets: [{
+                        label: 'Daily Uploads',
+                        data: trendData,
+                        backgroundColor: '#FF6384',
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        }
+    </script>
+</body>
+</html>

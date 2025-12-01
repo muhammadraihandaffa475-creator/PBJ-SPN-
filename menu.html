@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>@SPN POLDA JATIM - Linktree Clone</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+</head>
+<body>
+    <div class="container landscape" role="main">
+        <header role="banner">
+            <div class="header-icons" role="toolbar" aria-label="Header actions">
+                <button class="icon-btn" aria-label="Settings" title="Settings" type="button">
+                    <i class="fa-solid fa-asterisk"></i>
+                </button>
+                <button class="icon-btn" aria-label="Share" title="Share" type="button">
+                    <i class="fa-solid fa-upload"></i>
+                </button>
+                <button class="icon-btn theme-toggle" id="theme-toggle" aria-label="Toggle Dark Mode" title="Toggle Dark Mode" type="button">
+                    <i class="fa-solid fa-moon"></i>
+                </button>
+            </div>
+            <div class="profile-info">
+                <div class="logo-circle">
+                    <img src="https://yt3.ggpht.com/a/AATXAJwDikBj_PcvGKe5caluqknHoXgqXk7I5vY1CqY9=s900-c-k-c0xffffffff-no-rj-mo" alt="Logo Logistik Polda Jatim" class="logo" loading="lazy" />
+                </div>
+                <h1>@SPN POLDA JATIM</h1>
+                <p>SPN POLDA JATIM - Pengadaan Barang dan Jasa (PBJ)</p>
+            </div>
+        </header>
+
+        <main class="links-section" role="list">
+            <a href="admin.html" class="link-button" role="listitem" aria-label="Dashboard Aplikasi SPN POLDA JATIM">
+                <span class="icon-placeholder" style="background-image: url('placeholder-dashboard.png');" aria-hidden="true"></span>
+                DASHBOARD APLIKASI SPN POLDA JATIM
+                <span class="dots" aria-hidden="true">...</span>
+            </a>
+            <a href="spreadsheet.html" class="link-button" role="listitem" aria-label="Google Spreadsheet">
+                <span class="icon-placeholder" style="background-image: url('placeholder-input.png');" aria-hidden="true"></span>
+                GOOGLE SPREADSHEET
+                <span class="dots" aria-hidden="true">...</span>
+            </a>
+            <a href="upload.html" class="link-button" role="listitem" aria-label="Upload File">
+                <span class="icon-placeholder" style="background-image: url('placeholder-upload.png');" aria-hidden="true"></span>
+                UPLOAD FILE
+                <span class="dots" aria-hidden="true">...</span>
+            </a>
+            <a href="#" class="link-button" role="listitem" aria-label="Input PBJ yang Belum Terlaksana">
+                <span class="icon-placeholder" style="background-image: url('placeholder-pbj.png');" aria-hidden="true"></span>
+                INPUT PBJ YANG BELUM TERLAKSANA
+                <span class="dots" aria-hidden="true">...</span>
+            </a>
+            <a href="#" class="link-button" role="listitem" aria-label="Panduan Aplikasi SPN POLDA JATIM">
+                <span class="icon-placeholder" style="background-image: url('placeholder-panduan.png');" aria-hidden="true"></span>
+                PANDUAN APLIKASI SPN POLDA JATIM
+                <span class="dots" aria-hidden="true">...</span>
+            </a>
+            <a href="#" class="link-button" role="listitem" aria-label="Sosialisasi dan Bimtek Aplikasi SPN POLDA JATIM">
+                <span class="icon-placeholder" style="background-image: url('placeholder-sosialisasi.png');" aria-hidden="true"></span>
+                SOSIALISASI DAN BIMTEK APLIKASI SPN POLDA JATIM
+                <span class="dots" aria-hidden="true">...</span>
+            </a>
+        </main>
+
+        <div class="linktree-btn-container">
+            <a href="#" class="linktree-button" role="button" aria-label="Join SPN POLDA JATIM on Linktree">
+                Bergabung dengan SPN POLDA JATIM di Linktree
+            </a>
+        </div>
+
+        <footer>
+            <nav class="footer-links" role="contentinfo" aria-label="Footer navigation">
+                <a href="#" title="Cookie Preferences">Cookie Preferences</a>
+                <span class="dot-separator" aria-hidden="true">•</span>
+                <a href="#" title="Report">Report</a>
+                <span class="dot-separator" aria-hidden="true">•</span>
+                <a href="#" title="Privacy">Privacy</a>
+            </nav>
+        </footer>
+    </div>
+
+    <script>
+        // Theme toggle functionality
+        const themeToggle = document.getElementById('theme-toggle');
+
+        // Check for saved theme preference or default to light mode
+        const currentTheme = localStorage.getItem('theme') || 'light';
+
+        if (currentTheme === 'dark') {
+            document.documentElement.setAttribute('data-theme', 'dark');
+            themeToggle.innerHTML = '<i class="fa-solid fa-sun" aria-hidden="true"></i>';
+        }
+
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            if (currentTheme === 'dark') {
+                document.documentElement.removeAttribute('data-theme');
+                localStorage.setItem('theme', 'light');
+                themeToggle.innerHTML = '<i class="fa-solid fa-moon" aria-hidden="true"></i>';
+            } else {
+                document.documentElement.setAttribute('data-theme', 'dark');
+                localStorage.setItem('theme', 'dark');
+                themeToggle.innerHTML = '<i class="fa-solid fa-sun" aria-hidden="true"></i>';
+            }
+        });
+
+        function updateThemeIcon(theme) {
+            const icon = themeToggle.querySelector('i');
+            if (theme === 'dark') {
+                icon.className = 'fa-solid fa-sun';
+            } else {
+                icon.className = 'fa-solid fa-moon';
+            }
+        }
+
+        // Add loading animation to links
+        document.querySelectorAll('.link-button').forEach(link => {
+            link.addEventListener('click', function(e) {
+                if (this.href !== '#') {
+                    this.classList.add('loading');
+                }
+            });
+        });
+
+        // Add fade-in animation on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            document.body.classList.add('loaded');
+        });
+    </script>
+</body>
+</html>
